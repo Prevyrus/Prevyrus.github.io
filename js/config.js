@@ -10,72 +10,60 @@
 const SITE_CONFIG = {
 
   // ---------------------------------------------------------------------
-  // STOCK TICKER
+  // STOCK WATCHLIST
   // ---------------------------------------------------------------------
 
   stockApiUrl:
     "https://portfolio-stocks.davidandresgallegos.workers.dev",
 
   stockWatchlists: {
-    biotech: [
-      { symbol: "MRNA", name: "Moderna" },
-      { symbol: "REGN", name: "Regeneron Pharmaceuticals" },
-      { symbol: "VRTX", name: "Vertex Pharmaceuticals" },
-      { symbol: "ILMN", name: "Illumina" },
-      { symbol: "GILD", name: "Gilead Sciences" },
-      { symbol: "BIIB", name: "Biogen" },
-      { symbol: "AMGN", name: "Amgen" },
-      { symbol: "BNTX", name: "BioNTech" },
-      { symbol: "CRSP", name: "CRISPR Therapeutics" },
-      { symbol: "EXAS", name: "Exact Sciences" }
+    usBiotech: [
+      { symbol: "LLY", name: "Eli Lilly" },
+      { symbol: "JNJ", name: "Johnson & Johnson" },
+      { symbol: "ABBV", name: "AbbVie" },
+      { symbol: "MRK", name: "Merck" },
+      { symbol: "AMGN", name: "Amgen" }
     ],
 
-    healthTech: [
-      { symbol: "NVDA", name: "NVIDIA" },
-      { symbol: "GOOGL", name: "Alphabet (Google Health)" },
-      { symbol: "AMZN", name: "Amazon (Amazon Health)" },
-      { symbol: "MSFT", name: "Microsoft (Health & Cloud)" },
-      { symbol: "ISRG", name: "Intuitive Surgical" },
-      { symbol: "TDOC", name: "Teladoc Health" },
-      { symbol: "DXCM", name: "Dexcom" },
-      { symbol: "VEEV", name: "Veeva Systems" },
-      { symbol: "PHR", name: "Phreesia" },
-      { symbol: "IBM", name: "IBM (Watson Health legacy)" }
+    globalBiotech: [
+      { symbol: "RHHBY", name: "Roche" },
+      { symbol: "NVS", name: "Novartis" },
+      { symbol: "AZN", name: "AstraZeneca" },
+      { symbol: "NVO", name: "Novo Nordisk" },
+      { symbol: "SNY", name: "Sanofi" }
     ]
   },
 
-  // Browser refresh interval.
-  // 15 minutes = 15 × 60 × 1000 milliseconds.
+  // Browser asks the Worker for the latest cached values every 15 minutes.
   stockRefreshIntervalMs: 15 * 60 * 1000,
 
   // ---------------------------------------------------------------------
-  // NEWS / RESEARCH FEED
+  // RESEARCH / NEWS FEED
   // ---------------------------------------------------------------------
+  // Exactly 10 items total:
+  //   5 oncology / biotech
+  //   5 health technology / AI / computing
+  //
+  // Both categories use PubMed/NCBI, so no secret API key is required.
 
-  research: {
-    pubmedQuery:
-      "(oncology[Title]) OR (cancer genomics[Title]) OR (precision oncology[Title])",
-
-    maxResults: 6
-  },
-
-  industryNewsFeeds: [
+  researchFeeds: [
     {
-      name: "STAT News",
-      url: "https://www.statnews.com/feed/"
+      key: "oncologyBiotech",
+      label: "Oncology & Biotech",
+      maxResults: 5,
+      query:
+        "(cancer genomics[Title/Abstract] OR precision oncology[Title/Abstract] OR biotechnology[Title/Abstract] OR cancer therapy[Title/Abstract])"
     },
+
     {
-      name: "Endpoints News",
-      url: "https://endpts.com/feed/"
-    },
-    {
-      name: "FierceBiotech",
-      url: "https://www.fiercebiotech.com/rss.xml"
+      key: "healthTechnology",
+      label: "Health Technology & AI",
+      maxResults: 5,
+      query:
+        "(artificial intelligence[Title/Abstract] OR machine learning[Title/Abstract] OR GPU[Title/Abstract] OR deep learning[Title/Abstract]) AND (healthcare[Title/Abstract] OR medicine[Title/Abstract] OR medical imaging[Title/Abstract] OR genomics[Title/Abstract])"
     }
   ],
 
-  maxIndustryItemsPerFeed: 3,
-
-  // Refresh news feed every 15 minutes.
-  newsRefreshIntervalMs: 15 * 60 * 1000
+  // Refresh research feed every 30 minutes.
+  newsRefreshIntervalMs: 30 * 60 * 1000
 };
