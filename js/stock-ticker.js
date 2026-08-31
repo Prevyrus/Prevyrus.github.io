@@ -1,201 +1,134 @@
 /**
  * STOCK-TICKER.JS
  * -----------------------------------------------------------------------
- * Loads stock quotes through the Cloudflare Worker defined in config.js.
- * Supports switching between Biotech and Health Tech watchlists.
- * Uses the latest cached quote from the Worker and falls back to
- * sample data only if the live endpoint fails.
+ * Loads stock quotes through the Cloudflare Worker.
+ * Displays the selected watchlist immediately on page load.
+ * Refreshes approximately every 15 minutes.
  * -----------------------------------------------------------------------
  */
 
-(function stockTickerModule() {
+(function () {
   const root = document.querySelector("[data-ticker-root]");
+  const listEl = document.querySelector("[data-ticker-list]");
+  const updatedEl = document.querySelector("[data-ticker-updated]");
+  const noteEl = document.querySelector("[data-ticker-note]");
+  const tabs = document.querySelectorAll("[data-ticker-tab]");
 
-  if (!root) {
-    console.warn("Stock ticker root not found.");
+  if (!root || !listEl) {
+    console.error("Stock ticker HTML elements not found.");
     return;
   }
 
   if (typeof SITE_CONFIG === "undefined") {
-    console.error("SITE_CONFIG is not loaded.");
-    return;
-  }
-
-  const listEl = root.querySelector("[data-ticker-list]");
-  const updatedEl = root.querySelector("[data-ticker-updated]");
-  const noteEl = root.querySelector("[data-ticker-note]");
-  const tabs = root.querySelectorAll("[data-ticker-tab]");
-
-  if (!listEl) {
-    console.error("Stock ticker list element not found.");
+    console.error("SITE_CONFIG is not available.");
     return;
   }
 
   let activeCategory = "biotech";
 
-
-  // ---------------------------------------------------------------------
-  // FALLBACK SAMPLE DATA
-  // ---------------------------------------------------------------------
-
-  function sampleQuote(symbol) {
-    let hash = 0;
-
-    for (const char of symbol) {
-      hash = (hash * 31 + char.charCodeAt(0)) % 9973;
-    }
-
-    const base = 40 + (hash % 400);
-    const changePct = ((hash % 700) / 100) - 3.5;
-
-    return {
-      price: base,
-      changePct,
-      isSample: true,
-      cachedAt: null
-    };
-  }
-
-
-  // ---------------------------------------------------------------------
-  // FETCH QUOTE FROM CLOUDFLARE WORKER
-  // ---------------------------------------------------------------------
+  // --------------------------------------------------
+  // FETCH ONE STOCK
+  // --------------------------------------------------
 
   async function fetchQuote(symbol) {
-    try {
-      const url =
-        `${SITE_CONFIG.stockApiUrl}/?symbol=${encodeURIComponent(symbol)}`;
+    const url =
+      `${SITE_CONFIG.stockApiUrl}/?symbol=${encodeURIComponent(symbol)}`;
 
-      const res = await fetch(url, {
-        method: "GET",
-        cache: "no-store"
-      });
-
-      if (!res.ok) {
-        throw new Error(`Stock API returned ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      if (
-        !data ||
-        typeof data.price !== "number" ||
-        data.price <= 0
-      ) {
-        throw new Error("Invalid quote data");
-      }
-
-      return {
-        price: data.price,
-        changePct:
-          typeof data.changePct === "number"
-            ? data.changePct
-            : 0,
-
-        isSample: false,
-
-        cachedAt:
-          typeof data.cachedAt === "number"
-            ? data.cachedAt
-            : null
-      };
-
-    } catch (err) {
-      console.warn(
-        `Could not load live quote for ${symbol}. Using sample data.`,
-        err
-      );
-
-      return sampleQuote(symbol);
-    }
-  }
-
-
-  // ---------------------------------------------------------------------
-  // FORMATTING
-  // ---------------------------------------------------------------------
-
-  function formatPrice(price) {
-    return `$${price.toFixed(2)}`;
-  }
-
-  function formatChange(changePct) {
-    const sign = changePct >= 0 ? "+" : "";
-
-    return `${sign}${changePct.toFixed(2)}%`;
-  }
-
-  function formatUpdatedTime(timestamp) {
-    if (!timestamp) {
-      return null;
-    }
-
-    return new Date(timestamp).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit"
+    const response = await fetch(url, {
+      cache: "no-store"
     });
+
+    if (!response.ok) {
+      throw new Error(
+        `Stock API returned ${response.status} for ${symbol}`
+      );
+    }
+
+    const data = await response.json();
+
+    if (
+      typeof data.price !== "number" ||
+      typeof data.changePct !== "number"
+    ) {
+      throw new Error(
+        `Invalid stock data returned for ${symbol}`
+      );
+    }
+
+    return data;
   }
 
+  // --------------------------------------------------
+  // CREATE ROW
+  // --------------------------------------------------
 
-  // ---------------------------------------------------------------------
-  // CREATE STOCK ROWS
-  // ---------------------------------------------------------------------
+  function createRow(company) {
+    return `
+      <div class="ticker-row" data-symbol="${company.symbol}">
 
-  function createRows(companies) {
-    listEl.innerHTML = companies
-      .map(
-        company => `
-          <div class="ticker-row" data-symbol="${company.symbol}">
-            <div class="symbol">
-              ${company.symbol}
-              <span class="name">${company.name}</span>
-            </div>
+        <div class="symbol">
+          ${company.symbol}
 
-            <div class="price">
-              Loading...
-            </div>
+          <span class="name">
+            ${company.name}
+          </span>
+        </div>
 
-            <div class="change">
-              —
-            </div>
-          </div>
-        `
-      )
-      .join("");
+        <div class="price">
+          Loading...
+        </div>
+
+        <div class="change">
+          —
+        </div>
+
+      </div>
+    `;
   }
 
-
-  // ---------------------------------------------------------------------
-  // RENDER CATEGORY
-  // ---------------------------------------------------------------------
+  // --------------------------------------------------
+  // RENDER WATCHLIST
+  // --------------------------------------------------
 
   async function renderCategory(category) {
+    console.log("Rendering stock category:", category);
+
     const companies =
       SITE_CONFIG.stockWatchlists[category];
 
-    if (!companies || companies.length === 0) {
-      listEl.innerHTML =
-        `<p class="ticker-error">No companies found.</p>`;
+    if (!companies) {
+      console.error(
+        `Stock category does not exist: ${category}`
+      );
 
       return;
     }
 
-    createRows(companies);
+    // Immediately create visible rows.
+    listEl.innerHTML =
+      companies.map(createRow).join("");
 
     if (updatedEl) {
-      updatedEl.textContent = "Loading latest quotes...";
+      updatedEl.textContent =
+        "Loading latest market data...";
     }
 
-    const quotes = await Promise.all(
+    if (noteEl) {
+      noteEl.textContent =
+        "Retrieving latest available quotes...";
+    }
+
+    // Fetch stocks individually so one failed company
+    // does not break the entire watchlist.
+    const results = await Promise.allSettled(
       companies.map(company =>
         fetchQuote(company.symbol)
       )
     );
 
-    let sampleDataUsed = false;
-    let newestCachedAt = null;
+    let successfulQuotes = 0;
 
-    quotes.forEach((quote, index) => {
+    results.forEach((result, index) => {
       const company = companies[index];
 
       const row = listEl.querySelector(
@@ -212,93 +145,96 @@
       const changeEl =
         row.querySelector(".change");
 
-      priceEl.textContent =
-        formatPrice(quote.price);
+      if (result.status === "fulfilled") {
+        const quote = result.value;
 
-      changeEl.textContent =
-        formatChange(quote.changePct);
+        successfulQuotes++;
 
-      changeEl.classList.remove(
-        "is-up",
-        "is-down"
-      );
+        priceEl.textContent =
+          `$${quote.price.toFixed(2)}`;
 
-      if (quote.changePct >= 0) {
-        changeEl.classList.add("is-up");
+        const sign =
+          quote.changePct >= 0 ? "+" : "";
+
+        changeEl.textContent =
+          `${sign}${quote.changePct.toFixed(2)}%`;
+
+        changeEl.classList.remove(
+          "is-up",
+          "is-down"
+        );
+
+        if (quote.changePct >= 0) {
+          changeEl.classList.add("is-up");
+        } else {
+          changeEl.classList.add("is-down");
+        }
+
       } else {
-        changeEl.classList.add("is-down");
-      }
+        console.error(
+          `Could not load ${company.symbol}:`,
+          result.reason
+        );
 
-      if (quote.isSample) {
-        sampleDataUsed = true;
-      }
+        priceEl.textContent =
+          "Unavailable";
 
-      if (
-        quote.cachedAt &&
-        (!newestCachedAt || quote.cachedAt > newestCachedAt)
-      ) {
-        newestCachedAt = quote.cachedAt;
+        changeEl.textContent =
+          "—";
       }
     });
 
-
-    // -------------------------------------------------------------------
+    // ------------------------------------------------
     // STATUS
-    // -------------------------------------------------------------------
+    // ------------------------------------------------
+
+    const now =
+      new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
 
     if (updatedEl) {
-      if (sampleDataUsed) {
-        updatedEl.textContent =
-          "Some quotes unavailable";
-      } else {
-        const time =
-          formatUpdatedTime(newestCachedAt);
-
-        updatedEl.textContent =
-          time
-            ? `Latest pull: ${time}`
-            : "Live market data";
-      }
+      updatedEl.textContent =
+        `Updated ${now}`;
     }
 
-
     if (noteEl) {
-      if (sampleDataUsed) {
+      if (successfulQuotes === companies.length) {
         noteEl.textContent =
-          "Some live quotes could not be loaded. Sample figures are shown where necessary.";
+          "Latest available market data. Quotes are cached and refreshed approximately every 15 minutes.";
       } else {
         noteEl.textContent =
-          "Latest cached market data. Quotes refresh approximately every 15 minutes.";
+          `${successfulQuotes} of ${companies.length} quotes loaded successfully.`;
       }
     }
   }
 
-
-  // ---------------------------------------------------------------------
-  // TAB SWITCHING
-  // ---------------------------------------------------------------------
+  // --------------------------------------------------
+  // TAB BUTTONS
+  // --------------------------------------------------
 
   tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
+    tab.addEventListener("click", function () {
       const category =
-        tab.dataset.tickerTab;
+        this.dataset.tickerTab;
 
       if (
-        !category ||
         !SITE_CONFIG.stockWatchlists[category]
       ) {
-        console.warn(
-          `Unknown ticker category: ${category}`
+        console.error(
+          "Invalid ticker category:",
+          category
         );
 
         return;
       }
 
-      tabs.forEach(button =>
-        button.classList.remove("is-active")
-      );
+      tabs.forEach(button => {
+        button.classList.remove("is-active");
+      });
 
-      tab.classList.add("is-active");
+      this.classList.add("is-active");
 
       activeCategory = category;
 
@@ -306,20 +242,20 @@
     });
   });
 
-
-  // ---------------------------------------------------------------------
+  // --------------------------------------------------
   // INITIAL LOAD
-  // ---------------------------------------------------------------------
+  // --------------------------------------------------
+
+  console.log("Stock ticker initialized.");
 
   renderCategory(activeCategory);
 
-
-  // ---------------------------------------------------------------------
-  // AUTOMATIC REFRESH
-  // ---------------------------------------------------------------------
+  // --------------------------------------------------
+  // AUTO REFRESH
+  // --------------------------------------------------
 
   setInterval(
-    () => {
+    function () {
       renderCategory(activeCategory);
     },
     SITE_CONFIG.stockRefreshIntervalMs
