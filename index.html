@@ -1,262 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>David Gallegos — Bioinformatics & Data Science</title>
-<meta name="description" content="Bioinformatics student working at the intersection of genomics, machine learning, and data science." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David Gallegos — Bioinformatics & Data Science</title>
+  <meta name="description" content="Bioinformatics student working at the intersection of genomics, machine learning, and data science." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/variables.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
 </head>
+
 <body>
 
-<!-- ambient background, sits behind everything -->
-<div class="bg-field" aria-hidden="true">
-  <div class="bg-field__grid"></div>
-  <div class="bg-field__glow"></div>
-  <div class="bg-field__glow bg-field__glow--secondary"></div>
-</div>
-
-<header class="nav-wrap">
-  <nav class="navbar container">
-    <a class="brand" href="#home">David Gallegos<span class="dot">.</span></a>
-    <button class="menu-btn" id="menu-btn" aria-label="Toggle navigation">☰</button>
-    <div class="nav-links" id="nav-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#markets">Markets</a>
-      <a href="#research">Research feed</a>
-      <a href="#resume">Resume</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a class="btn btn-primary nav-cta" href="#contact">Let's connect</a>
-  </nav>
-</header>
-
-<main>
-
-  <!-- ============ HERO ============ -->
-  <section class="hero section" id="home">
-    <div class="container">
-      <p class="section-head kicker" style="margin:0 0 18px">Bioinformatics · Machine learning · Data</p>
-      <h1>Turning biological data<span class="accent">into discovery.</span></h1>
-      <p class="hero-sub">I build at the intersection of biology and computation — using data science, genomics, and machine learning to understand complex biological systems.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#projects">Explore my work</a>
-        <a class="btn btn-secondary" href="#resume">View resume</a>
-        <a class="btn btn-secondary" href="https://github.com/Prevyrus" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section class="section" id="about">
-    <div class="container grid-2">
-      <div class="section-head" data-reveal>
-        <p class="kicker">About</p>
-        <h2>Science meets computation.</h2>
-      </div>
-      <div class="glass" style="padding:32px" data-reveal>
-        <p style="margin-bottom:18px;color:#d5d0de">I'm a Bioinformatics student with a minor in Computer Science at Utah Valley University, interested in the intersection of biology, data science, and machine learning.</p>
-        <p style="margin-bottom:22px;color:#d5d0de">I enjoy building projects that use programming and computational methods to solve biological and real-world problems, with a growing focus on biomedical data, genomics, and AI.</p>
-        <div class="tag-row">
-          <span class="tag">Bioinformatics</span>
-          <span class="tag">Data science</span>
-          <span class="tag">Machine learning</span>
-          <span class="tag">Genomics</span>
-          <span class="tag">Biomedical data</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SKILLS ============ -->
-  <section class="section" id="skills">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="kicker">Skills</p>
-        <h2>What I work with.</h2>
-      </div>
-      <div class="grid-4">
-        <div class="glass" style="padding:22px" data-reveal>
-          <h3 style="font-size:1rem;margin-bottom:12px">Programming & Tools</h3>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">Git/GitHub</span><span class="tag">Jupyter</span><span class="tag">Excel (Certified)</span></div>
-        </div>
-        <div class="glass" style="padding:22px" data-reveal>
-          <h3 style="font-size:1rem;margin-bottom:12px">Data & Machine Learning</h3>
-          <div class="tag-row"><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">scikit-learn</span><span class="tag">PyTorch</span></div>
-        </div>
-        <div class="glass" style="padding:22px" data-reveal>
-          <h3 style="font-size:1rem;margin-bottom:12px">Bio & Analytical Skills</h3>
-          <div class="tag-row"><span class="tag">Molecular biology techniques</span><span class="tag">Data analysis</span><span class="tag">Research methods</span><span class="tag">Scientific reporting</span></div>
-        </div>
-        <div class="glass" style="padding:22px" data-reveal>
-          <h3 style="font-size:1rem;margin-bottom:12px">Soft Skills & Languages</h3>
-          <div class="tag-row"><span class="tag">Communication</span><span class="tag">Leadership</span><span class="tag">Teamwork</span><span class="tag">Spanish (Native)</span><span class="tag">English (Fluent)</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PROJECTS ============ -->
-  <section class="section" id="projects">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="kicker">Projects</p>
-        <h2>Featured work.</h2>
-      </div>
-      <div class="grid-cards grid-cards--triple">
-        <article class="glass project-card" data-reveal>
-          <span class="cat">ML + Imaging</span>
-          <h3>Breast Cancer: CNN vs. Vision Transformer</h3>
-          <p>Built and compared a Convolutional Neural Network against a Vision Transformer for breast cancer image classification, for CS 4700 Machine Learning.</p>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">Jupyter</span></div>
-          <a href="https://github.com/Prevyrus/Breast-Cancer-CNN-vs-VIT-" target="_blank" rel="noopener">View on GitHub</a>
-        </article>
-        <article class="glass project-card" data-reveal>
-          <span class="cat">Machine learning</span>
-          <h3>Binary Classification</h3>
-          <p>Applied and evaluated binary classification models on structured data as part of undergraduate coursework.</p>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">scikit-learn</span></div>
-          <a href="https://github.com/Prevyrus/CS-projects/tree/main/Binary_Classification" target="_blank" rel="noopener">View on GitHub</a>
-        </article>
-        <article class="glass project-card" data-reveal>
-          <span class="cat">Data science</span>
-          <h3>Data Preprocessing & Feature Selection</h3>
-          <p>End-to-end workflow covering data cleaning, feature selection, and model training on a real dataset.</p>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">Pandas</span></div>
-          <a href="https://github.com/Prevyrus/CS-projects/tree/main/Data%20Preprocessing%2C%20Feature%20Selection%2C%20Model%20Training" target="_blank" rel="noopener">View on GitHub</a>
-        </article>
-        <article class="glass project-card" data-reveal>
-          <span class="cat">Machine learning</span>
-          <h3>ML Classifiers</h3>
-          <p>Implemented and compared multiple classification algorithms to evaluate their strengths on different datasets.</p>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">scikit-learn</span></div>
-          <a href="https://github.com/Prevyrus/CS-projects/tree/main/ML%20classifiers" target="_blank" rel="noopener">View on GitHub</a>
-        </article>
-        <article class="glass project-card" data-reveal>
-          <span class="cat">Model tuning</span>
-          <h3>Model Evaluation & Hyperparameter Tuning</h3>
-          <p>Explored cross-validation, evaluation metrics, and hyperparameter search to improve model performance.</p>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">scikit-learn</span></div>
-          <a href="https://github.com/Prevyrus/CS-projects/tree/main/Model%20Evaluation%20and%20Hyperparameter%20Tuning" target="_blank" rel="noopener">View on GitHub</a>
-        </article>
-        <article class="glass project-card" data-reveal>
-          <span class="cat">Data science</span>
-          <h3>Regression Analysis</h3>
-          <p>Linear and regularized regression models used to study relationships within structured datasets.</p>
-          <div class="tag-row"><span class="tag">Python</span><span class="tag">Statistics</span></div>
-          <a href="https://github.com/Prevyrus/CS-projects/tree/main/Regression%20Analysis" target="_blank" rel="noopener">View on GitHub</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-<!-- ============ MARKETS ============ -->
-<section class="section" id="markets">
-  <div class="container">
-    <div class="section-head" data-reveal>
-      <p class="kicker">Markets</p>
-      <h2>Biotech & Technology leaders, tracked.</h2>
-      <p style="color:var(--muted);margin-top:10px">A focused watchlist of leading U.S. biotech, global biopharma, and major technology companies.</p>
-    </div>
-
-    <div class="glass ticker-widget" data-ticker-root data-reveal>
-      <div class="widget-head">
-        <h3>Watchlist</h3>
-        <span class="updated-at" data-ticker-updated></span>
-      </div>
-
-      <div class="ticker-tabs">
-        <button class="ticker-tab is-active" data-ticker-tab="usBiotech">U.S.</button>
-        <button class="ticker-tab" data-ticker-tab="globalBiotech">Global</button>
-        <button class="ticker-tab" data-ticker-tab="tech">Tech</button>
-      </div>
-
-      <div class="ticker-list" data-ticker-list></div>
-      <p class="ticker-note" data-ticker-note></p>
-    </div>
+  <!-- ============ AMBIENT BACKGROUND ============ -->
+  <div class="bg-field" aria-hidden="true">
+    <div class="bg-field__grid"></div>
+    <div class="bg-field__glow"></div>
+    <div class="bg-field__glow bg-field__glow--secondary"></div>
   </div>
-</section>
 
-<!-- ============ RESEARCH FEED ============ -->
-<section class="section" id="research">
-  <div class="container">
-    <div class="section-head" data-reveal>
-      <p class="kicker">Research feed</p>
-      <h2>Oncology, biotech & health technology.</h2>
-      <p style="color:var(--muted);margin-top:10px">Ten recent PubMed updates: five focused on oncology and biotechnology, and five on AI, computing, medical imaging, genomics, and health technology.</p>
-    </div>
-
-    <div class="news-grid" data-news-grid></div>
-  </div>
-</section>
-
-  <!-- ============ RESUME ============ -->
-  <section class="section" id="resume">
-    <div class="container grid-2">
-      <div class="section-head" data-reveal>
-        <p class="kicker">Resume</p>
-        <h2>Experience, education, and technical work.</h2>
-        <p style="color:var(--muted);margin-top:10px">Bioinformatics student with experience in machine learning, computational biology, programming, and student leadership.</p>
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav-wrap">
+    <nav class="navbar container">
+      <a class="brand" href="#home">David Gallegos<span class="dot">.</span></a>
+      <button class="menu-btn" id="menu-btn" aria-label="Toggle navigation">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#markets">Markets</a>
+        <a href="#research">Research feed</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
       </div>
-      <div class="glass" style="padding:28px" data-reveal>
-        <div class="grid-4" style="grid-template-columns:1fr 1fr;margin-bottom:20px">
-          <span class="tag" style="text-align:center;padding:14px">Education</span>
-          <span class="tag" style="text-align:center;padding:14px">Experience</span>
-          <span class="tag" style="text-align:center;padding:14px">Research</span>
-          <span class="tag" style="text-align:center;padding:14px">Technical skills</span>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener">View resume</a>
-          <a class="btn btn-secondary" href="resume.pdf" download>Download PDF</a>
-        </div>
-      </div>
-    </div>
-  </section>
+      <a class="btn btn-primary nav-cta" href="#contact">Let's connect</a>
+    </nav>
+  </header>
 
-  <!-- ============ CONTACT ============ -->
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="glass" style="padding:40px;text-align:center" data-reveal>
-        <p class="kicker">Contact</p>
-        <h2>Let's build something meaningful.</h2>
-        <p style="color:var(--muted);max-width:560px;margin:14px auto 0">I'm always happy to talk about bioinformatics, machine learning, data science, research, or interesting technical projects.</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero section" id="home">
+      <div class="container">
+        <p class="section-head kicker" style="margin:0 0 18px">Bioinformatics · Machine learning · Data</p>
+        <h1>Turning biological data<span class="accent">into discovery.</span></h1>
+        <p class="hero-sub">I build at the intersection of biology and computation — using data science, genomics, and machine learning to understand complex biological systems.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Explore my work</a>
+          <a class="btn btn-secondary" href="#resume">View resume</a>
           <a class="btn btn-secondary" href="https://github.com/Prevyrus" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn btn-secondary" href="https://linkedin.com/in/davidagallegos" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn btn-secondary" href="mailto:10904874@uvu.edu">Email</a>
-          <a class="btn btn-secondary" href="tel:+13854826655">(385) 482-6655</a>
         </div>
       </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+      <div class="container grid-2">
+        <div class="section-head" data-reveal>
+          <p class="kicker">About</p>
+          <h2>Science meets computation.</h2>
+        </div>
+        <div class="glass" style="padding:32px" data-reveal>
+          <p style="margin-bottom:18px;color:#d5d0de">I'm a Bioinformatics student with a minor in Computer Science at Utah Valley University, interested in the intersection of biology, data science, and machine learning.</p>
+          <p style="margin-bottom:22px;color:#d5d0de">I enjoy building projects that use programming and computational methods to solve biological and real-world problems, with a growing focus on biomedical data, genomics, and AI.</p>
+          <div class="tag-row">
+            <span class="tag">Bioinformatics</span>
+            <span class="tag">Data science</span>
+            <span class="tag">Machine learning</span>
+            <span class="tag">Genomics</span>
+            <span class="tag">Biomedical data</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Skills</p>
+          <h2>What I work with.</h2>
+        </div>
+
+        <div class="grid-4">
+          <div class="glass" style="padding:22px" data-reveal>
+            <h3 style="font-size:1rem;margin-bottom:12px">Programming & Tools</h3>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Git/GitHub</span>
+              <span class="tag">Jupyter</span>
+              <span class="tag">Excel (Certified)</span>
+            </div>
+          </div>
+
+          <div class="glass" style="padding:22px" data-reveal>
+            <h3 style="font-size:1rem;margin-bottom:12px">Data & Machine Learning</h3>
+            <div class="tag-row">
+              <span class="tag">Pandas</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">PyTorch</span>
+            </div>
+          </div>
+
+          <div class="glass" style="padding:22px" data-reveal>
+            <h3 style="font-size:1rem;margin-bottom:12px">Bio & Analytical Skills</h3>
+            <div class="tag-row">
+              <span class="tag">Molecular biology techniques</span>
+              <span class="tag">Data analysis</span>
+              <span class="tag">Research methods</span>
+              <span class="tag">Scientific reporting</span>
+            </div>
+          </div>
+
+          <div class="glass" style="padding:22px" data-reveal>
+            <h3 style="font-size:1rem;margin-bottom:12px">Soft Skills & Languages</h3>
+            <div class="tag-row">
+              <span class="tag">Communication</span>
+              <span class="tag">Leadership</span>
+              <span class="tag">Teamwork</span>
+              <span class="tag">Spanish (Native)</span>
+              <span class="tag">English (Fluent)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Projects</p>
+          <h2>Featured work.</h2>
+        </div>
+
+        <div class="grid-cards grid-cards--triple">
+          <article class="glass project-card" data-reveal>
+            <span class="cat">ML + Imaging</span>
+            <h3>Breast Cancer: CNN vs. Vision Transformer</h3>
+            <p>Built and compared a Convolutional Neural Network against a Vision Transformer for breast cancer image classification, for CS 4700 Machine Learning.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">Jupyter</span>
+            </div>
+            <a href="https://github.com/Prevyrus/Breast-Cancer-CNN-vs-VIT-" target="_blank" rel="noopener">View on GitHub</a>
+          </article>
+
+          <article class="glass project-card" data-reveal>
+            <span class="cat">Machine learning</span>
+            <h3>Binary Classification</h3>
+            <p>Applied and evaluated binary classification models on structured data as part of undergraduate coursework.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">scikit-learn</span>
+            </div>
+            <a href="https://github.com/Prevyrus/CS-projects/tree/main/Binary_Classification" target="_blank" rel="noopener">View on GitHub</a>
+          </article>
+
+          <article class="glass project-card" data-reveal>
+            <span class="cat">Data science</span>
+            <h3>Data Preprocessing & Feature Selection</h3>
+            <p>End-to-end workflow covering data cleaning, feature selection, and model training on a real dataset.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+            </div>
+            <a href="https://github.com/Prevyrus/CS-projects/tree/main/Data%20Preprocessing%2C%20Feature%20Selection%2C%20Model%20Training" target="_blank" rel="noopener">View on GitHub</a>
+          </article>
+
+          <article class="glass project-card" data-reveal>
+            <span class="cat">Machine learning</span>
+            <h3>ML Classifiers</h3>
+            <p>Implemented and compared multiple classification algorithms to evaluate their strengths on different datasets.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">scikit-learn</span>
+            </div>
+            <a href="https://github.com/Prevyrus/CS-projects/tree/main/ML%20classifiers" target="_blank" rel="noopener">View on GitHub</a>
+          </article>
+
+          <article class="glass project-card" data-reveal>
+            <span class="cat">Model tuning</span>
+            <h3>Model Evaluation & Hyperparameter Tuning</h3>
+            <p>Explored cross-validation, evaluation metrics, and hyperparameter search to improve model performance.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">scikit-learn</span>
+            </div>
+            <a href="https://github.com/Prevyrus/CS-projects/tree/main/Model%20Evaluation%20and%20Hyperparameter%20Tuning" target="_blank" rel="noopener">View on GitHub</a>
+          </article>
+
+          <article class="glass project-card" data-reveal>
+            <span class="cat">Data science</span>
+            <h3>Regression Analysis</h3>
+            <p>Linear and regularized regression models used to study relationships within structured datasets.</p>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Statistics</span>
+            </div>
+            <a href="https://github.com/Prevyrus/CS-projects/tree/main/Regression%20Analysis" target="_blank" rel="noopener">View on GitHub</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARKETS ============ -->
+    <section class="section" id="markets">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Markets</p>
+          <h2>Biotech & technology leaders, tracked.</h2>
+          <p style="color:var(--muted);margin-top:10px">A focused watchlist of leading U.S. biotech, global biopharma, and major technology companies.</p>
+        </div>
+
+        <div class="glass ticker-widget" data-ticker-root data-reveal>
+          <div class="widget-head">
+            <h3>Watchlist</h3>
+            <span class="updated-at" data-ticker-updated></span>
+          </div>
+
+          <div class="ticker-tabs">
+            <button class="ticker-tab is-active" data-ticker-tab="usBiotech">U.S. Biotech</button>
+            <button class="ticker-tab" data-ticker-tab="globalBiotech">Global Biotech</button>
+            <button class="ticker-tab" data-ticker-tab="tech">Tech</button>
+          </div>
+
+          <div class="ticker-list" data-ticker-list></div>
+          <p class="ticker-note" data-ticker-note></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESEARCH FEED ============ -->
+    <section class="section" id="research">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Research feed</p>
+          <h2>Oncology, biotech & health technology.</h2>
+          <p style="color:var(--muted);margin-top:10px">Ten recent PubMed updates: five focused on oncology and biotechnology, and five on AI, computing, medical imaging, genomics, and health technology.</p>
+        </div>
+
+        <div class="news-grid" data-news-grid></div>
+      </div>
+    </section>
+
+    <!-- ============ RESUME ============ -->
+    <section class="section" id="resume">
+      <div class="container grid-2">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Resume</p>
+          <h2>Experience, education, and technical work.</h2>
+          <p style="color:var(--muted);margin-top:10px">Bioinformatics student with experience in machine learning, computational biology, programming, and student leadership.</p>
+        </div>
+
+        <div class="glass" style="padding:28px" data-reveal>
+          <div class="grid-4" style="grid-template-columns:1fr 1fr;margin-bottom:20px">
+            <span class="tag" style="text-align:center;padding:14px">Education</span>
+            <span class="tag" style="text-align:center;padding:14px">Experience</span>
+            <span class="tag" style="text-align:center;padding:14px">Research</span>
+            <span class="tag" style="text-align:center;padding:14px">Technical skills</span>
+          </div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener">View resume</a>
+            <a class="btn btn-secondary" href="resume.pdf" download>Download PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="glass" style="padding:40px;text-align:center" data-reveal>
+          <p class="kicker">Contact</p>
+          <h2>Let's build something meaningful.</h2>
+          <p style="color:var(--muted);max-width:560px;margin:14px auto 0">I'm always happy to talk about bioinformatics, machine learning, data science, research, or interesting technical projects.</p>
+
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
+            <a class="btn btn-secondary" href="https://github.com/Prevyrus" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn btn-secondary" href="https://linkedin.com/in/davidagallegos" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn btn-secondary" href="mailto:10904874@uvu.edu">Email</a>
+            <a class="btn btn-secondary" href="tel:+13854826655">(385) 482-6655</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <span>© 2026 David Gallegos</span>
+      <a href="#home">Back to top ↑</a>
     </div>
-  </section>
+  </footer>
 
-</main>
+  <!-- ============ JAVASCRIPT ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/stock-ticker.js"></script>
+  <script src="js/news-feed.js"></script>
+  <script src="js/main.js"></script>
 
-<footer>
-  <div class="container">
-    <span>© 2026 David Gallegos</span>
-    <a href="#home">Back to top ↑</a>
-  </div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/animations.js"></script>
-<script src="js/stock-ticker.js"></script>
-<script src="js/news-feed.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>
