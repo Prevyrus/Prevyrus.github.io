@@ -31,6 +31,13 @@ const SITE_CONFIG = {
       { symbol: "AZN", name: "AstraZeneca" },
       { symbol: "NVO", name: "Novo Nordisk" },
       { symbol: "SNY", name: "Sanofi" }
+
+      tech: [
+    { symbol: "NVDA", name: "NVIDIA" },
+    { symbol: "MSFT", name: "Microsoft" },
+    { symbol: "GOOGL", name: "Alphabet" },
+    { symbol: "AMZN", name: "Amazon" },
+    { symbol: "AAPL", name: "Apple" }
     ]
   },
 
