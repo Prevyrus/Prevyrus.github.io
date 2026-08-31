@@ -1,3 +1,12 @@
+/**
+ * CONFIG.JS
+ * -----------------------------------------------------------------------
+ * Central configuration for the site's data-driven modules.
+ * Stock data is fetched through a Cloudflare Worker so the Finnhub API
+ * key stays private.
+ * -----------------------------------------------------------------------
+ */
+
 const SITE_CONFIG = {
 
   // ---------------------------------------------------------------------
@@ -35,9 +44,9 @@ const SITE_CONFIG = {
     ]
   },
 
-  // Refresh browser display every 15 minutes.
-  // Cloudflare also caches each quote for 15 minutes.
-  stockRefreshIntervalMs: 15 * 60000,
+  // Browser refresh interval.
+  // 15 minutes = 15 × 60 × 1000 milliseconds.
+  stockRefreshIntervalMs: 15 * 60 * 1000,
 
   // ---------------------------------------------------------------------
   // NEWS / RESEARCH FEED
@@ -67,5 +76,6 @@ const SITE_CONFIG = {
 
   maxIndustryItemsPerFeed: 3,
 
-  newsRefreshIntervalMs: 15 * 60000
+  // Refresh news feed every 15 minutes.
+  newsRefreshIntervalMs: 15 * 60 * 1000
 };
