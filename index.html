@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Gallegos — Bioinformatics &amp; Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #efede4;
+    --panel: #e4e1d3;
+    --ink: #1b2430;
+    --ink-soft: #52586a;
+    --line: #cac5b2;
+    --accent: #2f5ea8;
+    --accent-warm: #c97a3a;
+    --cat-programming: #2f5ea8;
+    --cat-data: #6b5b95;
+    --cat-bio: #2f8f80;
+    --cat-tools: #c97a3a;
+    --sidebar-w: 280px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  /* ---------- Layout shell ---------- */
+  .shell {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 2.25rem 1.75rem;
+  }
+
+  .sidebar-id {
+    margin-bottom: 2.5rem;
+  }
+
+  .sidebar-id .name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .sidebar-id .role {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .side-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+  }
+
+  .side-nav li { margin-bottom: 0.35rem; }
+
+  .side-nav a {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    border-left: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .side-nav a::before {
+    content: "";
+  }
+
+  .side-nav a.active {
+    color: var(--ink);
+    border-left-color: var(--accent);
+    background: rgba(47, 94, 168, 0.08);
+  }
+
+  .side-nav a:hover { color: var(--ink); }
+
+  .sidebar-socials {
+    display: flex;
+    gap: 0.9rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .sidebar-socials a {
+    color: var(--ink-soft);
+    display: flex;
+  }
+
+  .sidebar-socials a:hover { color: var(--accent); }
+
+  .sidebar-socials svg { width: 19px; height: 19px; }
+
+  /* ---------- Main content ---------- */
+  main {
+    margin-left: var(--sidebar-w);
+    flex-grow: 1;
+    max-width: 760px;
+    padding: 0 3rem;
+  }
+
+  section {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 2rem;
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent-warm);
+    margin-bottom: 0.75rem;
+  }
+
+  h1, h2, h3 { font-family: 'IBM Plex Sans', sans-serif; margin: 0; }
+
+  h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+
+  p { max-width: 62ch; }
+
+  /* ---------- Hero ---------- */
+  #home {
+    padding-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .hero-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+    line-height: 1.55;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-code .kw { color: var(--accent); }
+  .hero-code .str { color: var(--cat-bio); }
+  .hero-code .comment { color: var(--ink-soft); }
+
+  .cursor {
+    display: inline-block;
+    width: 0.55ch;
+    background: var(--ink);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.88rem;
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 3px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn:not(.btn-primary):hover { background: var(--ink); color: var(--bg); }
+
+  /* ---------- About ---------- */
+  .interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+  }
+
+  .interest-tags span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-group {
+    margin-bottom: 1.75rem;
+  }
+
+  .skill-group-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .skill-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .skill-group-head h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-left: 1.2rem;
+  }
+
+  .skill-items span {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  .skill-items span:not(:last-child)::after {
+    content: "";
+  }
+
+  /* ---------- Projects ---------- */
+  .project-card {
+    border-left: 3px solid var(--line);
+    padding: 0.25rem 0 1.75rem 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-card.programming { border-left-color: var(--cat-programming); }
+  .project-card.data { border-left-color: var(--cat-data); }
+  .project-card.bio { border-left-color: var(--cat-bio); }
+  .project-card.tools { border-left-color: var(--cat-tools); }
+
+  .project-card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-card p { margin: 0 0 0.75rem 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-tags span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .project-card a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .project-card a:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ---------- Resume ---------- */
+  .resume-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin: 1.5rem 0 2rem 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .resume-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+  /* ---------- Contact ---------- */
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0 0;
+  }
+
+  .contact-list li { margin-bottom: 0.9rem; }
+
+  .contact-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .contact-list a:hover { color: var(--accent); }
+  .contact-list svg { width: 18px; height: 18px; color: var(--ink-soft); }
+
+  footer {
+    padding: 2.5rem 0 4rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 860px) {
+    .shell { flex-direction: column; }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      z-index: 10;
+      overflow-x: auto;
+    }
+
+    .sidebar-id { margin-bottom: 0; white-space: nowrap; }
+    .sidebar-id .role { display: none; }
+
+    .side-nav {
+      display: flex;
+      gap: 0.25rem;
+      flex-grow: 0;
+    }
+
+    .side-nav li { margin-bottom: 0; }
+
+    .sidebar-socials {
+      border-top: none;
+      padding-top: 0;
+      flex-shrink: 0;
+      margin-left: 0.75rem;
+    }
+
+    main {
+      margin-left: 0;
+      max-width: 100%;
+      padding: 0 1.5rem;
+    }
+
+    #home { min-height: 70vh; padding-top: 3rem; }
+    section { padding: 3.5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sidebar-id">
+      <div class="name mono">david_gallegos</div>
+      <div class="role">Bioinformatics student</div>
+    </div>
+
+    <ul class="side-nav" id="side-nav">
+      <li><a href="#home" class="active">home</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#resume">resume</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+
+    <div class="sidebar-socials">
+      <a href="https://github.com/Prevyrus" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.7 5.6.7 12c0 5.1 3.3 9.4 7.9 11 .6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.6 7.9-5.9 7.9-11C23.3 5.6 18.3.5 12 .5Z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5ZM.5 8.98h8.96V23.5H.5V8.98Zm7.5 0h8.6v2h.12c.4-.9 1.9-2.3 4.1-2.3 4.4 0 5.2 2.6 5.2 6.1v8.7h-9V16.6c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.3v7h-9V8.98Z"/></svg>
+      </a>
+      <a href="mailto:david.gallegos@example.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1.4 2 8.6 6.8L20.6 6H3.4Zm17.6 2.3-9 7.1-9-7.1V18h18V8.3Z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <main>
+
+    <section id="home">
+      <div class="hero-code mono">
+        <span class="comment"># bioinformatics · computer science · data science</span><br>
+        david_gallegos = <span class="kw">Person</span>(<br>
+        &nbsp;&nbsp;studying=<span class="str">"bioinformatics"</span>,<br>
+        &nbsp;&nbsp;minor=<span class="str">"computer science"</span>,<br>
+        &nbsp;&nbsp;focus=<span class="str">"data science & machine learning"</span><br>
+        )<span class="cursor">&nbsp;</span>
+      </div>
+      <p class="hero-sub">I build tools at the intersection of biology and code — from sequence analysis to image classification models. Currently exploring how machine learning can speed up genomics research.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn" href="#resume">View resume</a>
+        <a class="btn" href="https://github.com/Prevyrus" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-tag mono">about</div>
+      <h2>A bit about me</h2>
+      <p>I'm a bioinformatics student with a minor in computer science. I'm drawn to problems where biological data meets computation — sequence alignment, gene expression, medical imaging — and I like building the tools that make that data easier to work with.</p>
+      <p>Most of my recent work sits between data science and computational biology: training models on genomic and imaging datasets, and writing the pipelines that get messy lab data into a shape a model can actually learn from.</p>
+      <div class="interest-tags">
+        <span>Bioinformatics</span>
+        <span>Data science</span>
+        <span>Machine learning</span>
+        <span>Cancer genomics</span>
+        <span>Computational biology</span>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-tag mono">skills</div>
+      <h2>What I work with</h2>
+
+      <div class="skill-group">
+        <div class="skill-group-head">
+          <span class="skill-dot" style="background: var(--cat-programming)"></span>
+          <h3>Programming</h3>
+        </div>
+        <div class="skill-items">
+          <span>Python</span><span>R</span><span>SQL</span><span>Bash</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-head">
+          <span class="skill-dot" style="background: var(--cat-data)"></span>
+          <h3>Data &amp; machine learning</h3>
+        </div>
+        <div class="skill-items">
+          <span>Pandas</span><span>NumPy</span><span>scikit-learn</span><span>PyTorch</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-head">
+          <span class="skill-dot" style="background: var(--cat-bio)"></span>
+          <h3>Bioinformatics</h3>
+        </div>
+        <div class="skill-items">
+          <span>Biopython</span><span>Genomics</span><span>Sequence analysis</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-head">
+          <span class="skill-dot" style="background: var(--cat-tools)"></span>
+          <h3>Tools</h3>
+        </div>
+        <div class="skill-items">
+          <span>Git</span><span>GitHub</span><span>Linux</span><span>Docker</span><span>Jupyter</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-tag mono">projects</div>
+      <h2>Featured projects</h2>
+
+      <div class="project-card programming">
+        <h3>Breast Cancer Image Classification</h3>
+        <p>CNN and Vision Transformer models trained to classify BreastMNIST images, comparing accuracy and training cost between architectures.</p>
+        <div class="project-tags"><span>Python</span><span>PyTorch</span><span>Machine learning</span></div>
+        <a href="#">View project</a>
+      </div>
+
+      <div class="project-card bio">
+        <h3>Genomic Sequence Alignment Tool</h3>
+        <p>A command-line tool for aligning and comparing DNA sequences, built on Biopython, with support for basic variant reporting.</p>
+        <div class="project-tags"><span>Python</span><span>Biopython</span><span>Bioinformatics</span></div>
+        <a href="#">View project</a>
+      </div>
+
+      <div class="project-card data">
+        <h3>Regression Analysis: Gene Expression Data</h3>
+        <p>Statistical modeling project examining relationships between expression levels and clinical variables using linear and regularized regression.</p>
+        <div class="project-tags"><span>R</span><span>Statistics</span><span>Data analysis</span></div>
+        <a href="#">View project</a>
+      </div>
+
+      <div class="project-card tools">
+        <h3>Containerized Data Pipeline</h3>
+        <p>A reproducible Docker-based pipeline for preprocessing raw sequencing data, built to run identically on any machine.</p>
+        <div class="project-tags"><span>Docker</span><span>Linux</span><span>Bash</span></div>
+        <a href="#">View project</a>
+      </div>
+    </section>
+
+    <section id="resume">
+      <div class="section-tag mono">resume</div>
+      <h2>Resume</h2>
+      <p>Bioinformatics student with experience in machine learning, computational biology, programming, and student leadership.</p>
+      <div class="resume-preview">
+        <span>Education</span><span>Experience</span><span>Research</span><span>Technical skills</span>
+      </div>
+      <div class="resume-actions">
+        <a class="btn btn-primary" href="#" target="_blank" rel="noopener">View resume</a>
+        <a class="btn" href="#" download>Download PDF</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-tag mono">contact</div>
+      <h2>Get in touch</h2>
+      <p>I'm always happy to talk about bioinformatics, machine learning, or research opportunities.</p>
+      <ul class="contact-list">
+        <li>
+          <a href="https://github.com/Prevyrus" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.7 5.6.7 12c0 5.1 3.3 9.4 7.9 11 .6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.6 7.9-5.9 7.9-11C23.3 5.6 18.3.5 12 .5Z"/></svg>
+            github.com/Prevyrus
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5ZM.5 8.98h8.96V23.5H.5V8.98Zm7.5 0h8.6v2h.12c.4-.9 1.9-2.3 4.1-2.3 4.4 0 5.2 2.6 5.2 6.1v8.7h-9V16.6c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.3v7h-9V8.98Z"/></svg>
+            linkedin.com/in/your-handle
+          </a>
+        </li>
+        <li>
+          <a href="mailto:david.gallegos@example.com">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1.4 2 8.6 6.8L20.6 6H3.4Zm17.6 2.3-9 7.1-9-7.1V18h18V8.3Z"/></svg>
+            david.gallegos@example.com
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <footer>&copy; 2026 David Gallegos. Built with HTML &amp; CSS.</footer>
+
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('#side-nav a');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = '#' + entry.target.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(s => { if (s) observer.observe(s); });
+</script>
+
+</body>
+</html>
