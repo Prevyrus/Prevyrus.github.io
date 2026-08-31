@@ -1,0 +1,15 @@
+/* Elements tagged [data-reveal] start hidden; animations.js animates them
+   in with GSAP ScrollTrigger as they enter the viewport. This class is
+   the no-JS / pre-JS fallback so content is never permanently invisible. */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(36px);
+}
+.js-ready [data-reveal]{
+  will-change:transform, opacity;
+}
+.no-js [data-reveal],
+.reduce-motion [data-reveal]{
+  opacity:1 !important;
+  transform:none !important;
+}

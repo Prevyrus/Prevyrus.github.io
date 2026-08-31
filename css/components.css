@@ -1,0 +1,93 @@
+.brand{font-family:var(--font-display);font-weight:700;font-size:1rem}
+.brand .dot{color:var(--violet)}
+
+.nav-links a{color:#b7aecb;font-size:.88rem;transition:color .18s ease}
+.nav-links a:hover,.nav-links a.is-active{color:#fff}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:0 20px;border-radius:12px;
+  border:1px solid rgba(190,160,255,.32);
+  font-size:.88rem;font-weight:600;
+  transition:transform .18s ease, border-color .18s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(180deg,#9c66ff,#6a30e4);box-shadow:0 0 26px rgba(122,60,255,.28)}
+.btn-secondary{background:rgba(255,255,255,.035)}
+
+.glass{
+  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  backdrop-filter:blur(14px);
+}
+
+.tag-row{display:flex;flex-wrap:wrap;gap:8px}
+.tag{
+  border:1px solid rgba(167,120,255,.2);
+  background:rgba(133,72,255,.09);
+  color:#cbbcf0;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:.78rem;
+}
+
+/* ---------- project cards ---------- */
+.project-card{
+  padding:26px;display:flex;flex-direction:column;gap:14px;
+  transition:transform .2s ease, border-color .2s ease;
+}
+.project-card:hover{transform:translateY(-4px);border-color:rgba(170,126,255,.3)}
+.project-card .cat{color:var(--cyan);font-size:.78rem}
+.project-card h3{font-size:1.2rem}
+.project-card p{color:var(--muted);font-size:.94rem}
+.project-card .tag-row{margin-top:auto}
+
+/* ---------- stock ticker widget ---------- */
+.ticker-widget{padding:26px}
+.ticker-widget .widget-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px;
+}
+.ticker-widget .widget-head h3{font-size:1.1rem}
+.ticker-widget .widget-head .updated-at{color:var(--muted-dim);font-size:.75rem}
+
+.ticker-tabs{display:flex;gap:8px;margin-bottom:16px}
+.ticker-tab{
+  padding:6px 14px;border-radius:999px;border:1px solid var(--line);
+  color:var(--muted);font-size:.82rem;background:transparent;
+}
+.ticker-tab.is-active{color:var(--text);border-color:rgba(143,91,255,.5);background:rgba(143,91,255,.12)}
+
+.ticker-list{display:flex;flex-direction:column}
+.ticker-row{
+  display:grid;
+  grid-template-columns:1.6fr .8fr .8fr;
+  align-items:center;
+  padding:12px 4px;
+  border-bottom:1px solid var(--line);
+  font-size:.9rem;
+}
+.ticker-row:last-child{border-bottom:none}
+.ticker-row .symbol{font-weight:600}
+.ticker-row .name{display:block;color:var(--muted-dim);font-size:.75rem;margin-top:2px}
+.ticker-row .price{text-align:right;font-variant-numeric:tabular-nums}
+.ticker-row .change{text-align:right;font-variant-numeric:tabular-nums}
+.change.is-up{color:#6fe0a0}
+.change.is-down{color:#ff8a8a}
+.ticker-note{margin-top:16px;color:var(--muted-dim);font-size:.78rem}
+
+/* ---------- news feed widget ---------- */
+.news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.news-card{
+  padding:20px;display:flex;flex-direction:column;gap:10px;
+}
+.news-card .source-row{display:flex;justify-content:space-between;color:var(--muted-dim);font-size:.74rem}
+.news-card h4{font-size:1rem;line-height:1.35}
+.news-card p{color:var(--muted);font-size:.86rem}
+.news-card a{color:var(--cyan);font-size:.82rem;font-weight:600;margin-top:auto}
+.news-loading,.news-error{color:var(--muted-dim);font-size:.88rem;padding:8px 0}
+
+@media (max-width:860px){
+  .news-grid{grid-template-columns:1fr}
+  .ticker-row{grid-template-columns:1.4fr .8fr .8fr;font-size:.84rem}
+}
