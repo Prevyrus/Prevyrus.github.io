@@ -162,41 +162,44 @@
     </div>
   </section>
 
-  <!-- ============ MARKETS (stock ticker) ============ -->
-  <section class="section" id="markets">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="kicker">Markets</p>
-        <h2>Biotech & health-tech, tracked.</h2>
-        <p style="color:var(--muted);margin-top:10px">A running watchlist of the companies shaping genomics and health computing.</p>
+<!-- ============ MARKETS ============ -->
+<section class="section" id="markets">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="kicker">Markets</p>
+      <h2>Biotech leaders, tracked.</h2>
+      <p style="color:var(--muted);margin-top:10px">Five leading U.S. companies and five major global biopharma companies.</p>
+    </div>
+
+    <div class="glass ticker-widget" data-ticker-root data-reveal>
+      <div class="widget-head">
+        <h3>Watchlist</h3>
+        <span class="updated-at" data-ticker-updated></span>
       </div>
 
-      <div class="glass ticker-widget" data-ticker-root data-reveal>
-        <div class="widget-head">
-          <h3>Watchlist</h3>
-          <span class="updated-at" data-ticker-updated></span>
-        </div>
-        <div class="ticker-tabs">
-          <button class="ticker-tab is-active" data-ticker-tab="biotech">Biotech</button>
-          <button class="ticker-tab" data-ticker-tab="healthTech">Health tech</button>
-        </div>
-        <div class="ticker-list" data-ticker-list></div>
-        <p class="ticker-note" data-ticker-note></p>
+      <div class="ticker-tabs">
+        <button class="ticker-tab is-active" data-ticker-tab="usBiotech">U.S.</button>
+        <button class="ticker-tab" data-ticker-tab="globalBiotech">Global</button>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ RESEARCH FEED (news) ============ -->
-  <section class="section" id="research">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="kicker">Research feed</p>
-        <h2>What's new in oncology & biotech.</h2>
-        <p style="color:var(--muted);margin-top:10px">Live from PubMed and industry publications — refreshes automatically.</p>
-      </div>
-      <div class="news-grid" data-news-grid></div>
+      <div class="ticker-list" data-ticker-list></div>
+      <p class="ticker-note" data-ticker-note></p>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ============ RESEARCH FEED ============ -->
+<section class="section" id="research">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="kicker">Research feed</p>
+      <h2>Oncology, biotech & health technology.</h2>
+      <p style="color:var(--muted);margin-top:10px">Ten recent PubMed updates: five focused on oncology and biotechnology, and five on AI, computing, medical imaging, genomics, and health technology.</p>
+    </div>
+
+    <div class="news-grid" data-news-grid></div>
+  </div>
+</section>
 
   <!-- ============ RESUME ============ -->
   <section class="section" id="resume">
